@@ -13,9 +13,13 @@ const getArticles = (req, res, next) => {
 };
 
 const createArticle = (req, res, next) => {
-  const { keyword, title, text, date, source, link, image } = req.body;
+  const {
+    keyword, title, text, date, source, link, image,
+  } = req.body;
 
-  Article.create({ keyword, title, text, date, source, link, image, owner: req.user._id })
+  Article.create({
+    keyword, title, text, date, source, link, image, owner: req.user._id,
+  })
     .then((data) => {
       res.send({ data });
     })
@@ -26,11 +30,11 @@ const createArticle = (req, res, next) => {
 };
 
 const delArticle = (req, res, next) => {
-  Article.findById(req.params._id)
+  Article.findById(req.params.articleId)
     .orFail(new NotFoundError('Карточка не найдена'))
     .then((article) => {
       if (article.owner.toString() === req.user._id) {
-        Article.findByIdAndRemove(req.params._id)
+        Article.findByIdAndRemove(req.params.articleId)
           .then((data) => {
             res.send({ data });
           })

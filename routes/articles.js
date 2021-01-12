@@ -33,5 +33,4 @@ articleRouter.delete('/:articleId', celebrate({
   }),
 }), delArticle);
 
-
 module.exports = articleRouter;
